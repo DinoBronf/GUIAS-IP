@@ -133,13 +133,39 @@ contarPalabras (x:xs) | longitud (x:xs) == 0 = 0
                       | x /= ' ' && head xs /= ' ' = contarPalabras xs 
                       | x /= ' ' && head xs == ' ' = contarPalabras xs
                       | x == ' ' = 1 + contarPalabras xs 
+--4.3
+palabras :: [Char] -> [[Char]]
+palabras x = extraerPalabras x []
 
-
-
-         
+extraerPalabras :: [Char] -> [Char] -> [[Char]]
+extraerPalabras [] [] = []
+extraerPalabras [] l = [l]
+extraerPalabras (x:xs) [] | x == ' ' = extraerPalabras xs []
+extraerPalabras (x:xs) l  | x == ' ' = l : extraerPalabras xs []
+                          | otherwise = extraerPalabras xs (l ++ [x])  
+--4.4
+{-palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga [] = []
+palabraMasLarga (x:xs) | head(xs) == ' ' = longitud (palabras x) >= longitud (palabras head(tail(xs))) == palabras x
+                       | otherwise = longitud (palabras xs) -}
+--4.5
+aplanar :: [[Char]] -> [Char]
+aplanar [] = []
+aplanar (x:xs) = x ++ aplanar xs     
+--4.6
+aplanarConBlancos :: [[Char]] -> [Char]
+aplanarConBlancos [] = []
+aplanarConBlancos (x:xs) = x ++ [' '] ++ aplanar xs
+--4.7
+aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
+aplanarConNBlancos [] n = []
+aplanarConNBlancos (x:xs) n = x ++ nBlancos n ++ aplanarConNBlancos xs n
+nBlancos :: Integer -> [Char]
+nBlancos 0 = []
+nBlancos n = ' ' : nBlancos (n-1)
+--Ej 5
 
 
                 
 
                      
-
