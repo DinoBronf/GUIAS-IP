@@ -24,14 +24,18 @@ amigosDe n ((x,y):xs) | n == x = [y] ++ (amigosDe n xs)
                       | n == y = [x] ++ (amigosDe n xs)
                       | n /= x && n /= y = amigosDe n xs
 --Ej 4
-{-personaConMasAmigos :: [(String,String)] -> String
-personaConMasAmigos ((x,y):xs) | -}
+personaConMasAmigos :: [(String,String)] -> String 
+personaConMasAmigos [] = "ninguno"
+personaConMasAmigos  ((x,y):(xs))   | (xs) == [] = personaConMasAmigosAux ((x,y):(xs)) 
+                                    | personaConMasAmigosAux ((x,y):(xs)) > personaConMasAmigosAux xs = personaConMasAmigos ((x,y):tail(xs))
+                                    | personaConMasAmigosAux ((x,y):(xs)) <= personaConMasAmigosAux xs = personaConMasAmigos (xs)
+ 
+personaConMasAmigosAux :: [(String,String)] -> String
+personaConMasAmigosAux [] = []
+personaConMasAmigosAux ((x,y):xs) | longitud (amigosDe x ((x,y):xs)) >= longitud (amigosDe y ((x,y):xs)) = x  
+                                  | longitud (amigosDe x ((x,y):xs)) < longitud (amigosDe y ((x,y):xs)) = y  
 
-cuantosRepetidos :: String -> [(String,String)] -> Int
-cuantosRepetidos n [] = 0
-cuantosRepetidos n ((x,y):xs) | n == x || n == y = 1 + cuantosRepetidos n xs
-                              | otherwise = cuantosRepetidos n xs
-
-comparaAmigos :: [(String,String)] -> String
-comparaAmigos ((x,y):xs) | cuantosRepetidos x xs > cuantosRepetidos y xs = cuantosRepetidos x tail(xs)
-                         | otherwise = y
+longitud :: [String] -> Integer
+longitud  [] = 0
+longitud (x:xs) = 1 + longitud (xs)  
+ 
