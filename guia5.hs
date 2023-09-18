@@ -120,6 +120,22 @@ ordenar2 (x:xs) | maximo (x:xs) == x = ordenar2 xs ++ [x]
 --Ej 4
 --4.1
 sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos (x:xs) | longitud (x:xs) == 1 = (x:xs)
+                             | x == ' ' && head (tail (x:xs)) == ' ' = [head(xs)] ++ sacarBlancosRepetidos xs
+                             | otherwise = [x] ++ sacarBlancosRepetidos xs
+--4.2
+contarPalabras :: [Char] -> Integer
+contarPalabras [] = 0
+contarPalabras (x:xs) | longitud (x:xs) == 0 = 0
+                      | longitud (x:xs) == 1 && x /= ' ' = 1
+                      | longitud (x:xs) == 1 && x == ' ' = 0
+                      | x /= ' ' && head xs /= ' ' = contarPalabras xs 
+                      | x /= ' ' && head xs == ' ' = contarPalabras xs
+                      | x == ' ' = 1 + contarPalabras xs 
+
+
+
          
 
 
