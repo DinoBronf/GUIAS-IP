@@ -164,8 +164,35 @@ nBlancos :: Integer -> [Char]
 nBlancos 0 = []
 nBlancos n = ' ' : nBlancos (n-1)
 --Ej 5
+--5.1 
+{-
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada  [] = []
+sumaAcumulada (x:xs) = x : sumaAcumulada (sumatoria2 x head(xs))
 
+sumatoria2 :: t -> t -> t
+sumatoria2 x y = x + y
+-}
+--5.2
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) | esPrimo x = [x] : descomponerEnPrimos xs
+                           | otherwise = completa x 2 : descomponerEnPrimos xs 
+                          
+completa :: Integer -> Integer  -> [(Integer)]
+completa x y | (menorDivisor x) * y == x = [(menorDivisor x), (y)]
+             | otherwise = completa x (y + 1) 
+                         
+esPrimo :: Integer -> Bool
+esPrimo x | x == 1 = False
+          | menorDivisor x == x = True
+          | otherwise = False
+menorDivisor :: Integer -> Integer
+menorDivisor x | x == 1 = 1
+               | mod x 2 == 0 = 2
+               | otherwise = encontrarDivisor x 2
+encontrarDivisor :: Integer -> Integer -> Integer
+encontrarDivisor x k | mod x k == 0 = k
+                     | otherwise = encontrarDivisor x (k+1)
 
-                
-
-                     
+ 
