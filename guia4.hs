@@ -148,11 +148,15 @@ sonCoprimos m n | m == 1 && n == 1 = False
                 | gcd m n == 1 = True 
                 | otherwise = False
 --d
- {-nEsimoPrimo :: Integer ->Integer
- nEsimoPrimo x | 
- listaDePrimos :: Integer -> [Integer]
- listaDePrimos -}
-               
+{-
+nEsimoPrimo :: Integer -> Integer
+nEsimoPrimo x | x == 1 = 2 
+              | otherwise = auxiliar [] x
+ 
+esPrimo2 :: Integer -> [Integer]
+esPrimo2 x | x == 0 = []
+           | esPrimo x = x : esPrimo2 (x-1)
+           | otherwise = esPrimo2 (x-1) -}
 --Ej 17
 esFibonacci2 :: Integer -> Bool
 esFibonacci2 n = esFibo n 0
@@ -173,19 +177,48 @@ recuentodedigitos :: Integer -> Integer
 recuentodedigitos x | x <= 9 = 1 
                     | otherwise = recuentodedigitos (div x 10) + 1 
 --Ej 19
-esSumaInicialDePrimos :: Int -> Bool
-esSumaInicialDePrimos x = sumaDeTantosPrimos1 x 2 
-                         
-otraMas :: Int -> Int -> Int-> Bool
-otraMas m n | m == sumaDeTantosPrimos1 m n = True 
-            | otherwise = sumaDeTantosPrimos1 m (n + 1)
-            | m /= sumaDeTantosPrimos1 m (n+1) = False
+esSumaInicialDePrimos :: Int -> Bool 
+esSumaInicialDePrimos x = sumaDeTantosPrimos2 x 1
 
-sumaDeTantosPrimos1 :: Int -> Int -> Bool
-sumaDeTantosPrimos1 x y | x == sumaDePrimos (y) = True
-                        | x /= sumaDePrimos (y) = False
+sumaDeTantosPrimos2 :: Int -> Int -> Bool
+sumaDeTantosPrimos2 x y | x == sumaDeTantosPrimos1 y 1 = True
+                        | x < sumaDeTantosPrimos1 y 1 = False
+                        | otherwise = sumaDeTantosPrimos2 x (y+1) 
+sumaDeTantosPrimos1 :: Int -> Int -> Int
+sumaDeTantosPrimos1 x y | x == 1 = 2
+                        | x == length (sumaDePrimos y) = sumeta (sumaDePrimos y)
+                        | x < length (sumaDePrimos y) = sumaDeTantosPrimos1 x (y-1)
+                        | x > length (sumaDePrimos y) = sumaDeTantosPrimos1 x (y+1)
+sumeta :: [Int] -> Int
+sumeta [] = 0
+sumeta (x:xs) = x + sumeta xs  
+sumaDePrimos :: Int -> [Int]
+sumaDePrimos y | y < 1 = [] 
+               | esPrimo y = [y] ++ sumaDePrimos (y - 1) 
+               | otherwise = sumaDePrimos (y - 1) 
+--Ej 20
+tomaValorMax :: Int ->Int ->Int
+tomaValorMax n1 n2  | n1 == n2 = n1
+                    | sumaDivisores n1 2 > sumaDivisores (n2) 2 = tomaValorMax n1 (n2 -1)
+                    | sumaDivisores n1 2 <= sumaDivisores (n2) 2 = tomaValorMax (n1 + 1) n2
+sumaDivisores :: Int -> Int -> Int
+sumaDivisores x y | x == 0 = 0
+                  | x == 1 = 1
+                  | x <= y = 0
+                  | mod x y == 0 = 1 + sumaDivisores x (y+1)
+                  | otherwise = sumaDivisores x (y + 1)
+--Ej 21
+pitagoras :: Integer ->Integer -> Integer -> Integer
+pitagoras m n r | m == 0 && n == 0 = 1
+                | n == 0 && m > r = r + 1
+                | n ==0 && m <= r = m + 1
+                | otherwise = pitagorasAux m n r + pitagoras m (n-1) r 
 
-sumaDePrimos :: Int -> Int
-sumaDePrimos y | y <= 1 = 0
-               | esPrimo y = y + sumaDePrimos (y - 1) 
-               | otherwise = sumaDePrimos (y - 1)
+pitagorasAux :: Integer -> Integer -> Integer -> Integer
+pitagorasAux m n r| m == 0 && n > r = 0 
+                  | m == 0 && n <= r = 1
+                  | (m^2 + n^2) <= r^2 = 1 + pitagorasAux (m-1) n r 
+                  | otherwise = pitagorasAux (m-1) n r
+
+
+   

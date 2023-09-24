@@ -144,10 +144,10 @@ extraerPalabras (x:xs) [] | x == ' ' = extraerPalabras xs []
 extraerPalabras (x:xs) l  | x == ' ' = l : extraerPalabras xs []
                           | otherwise = extraerPalabras xs (l ++ [x])  
 --4.4
-{-palabraMasLarga :: [Char] -> [Char]
-palabraMasLarga [] = []
-palabraMasLarga (x:xs) | head(xs) == ' ' = longitud (palabras x) >= longitud (palabras head(tail(xs))) == palabras x
-                       | otherwise = longitud (palabras xs) -}
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga [] = palabras x
+palabraMasLarga (x:xs) | length (palabras x) < length (palabras xs) = palabraMasLarga xs
+                       | otherwise = palabraMasLarga (x:tail(xs))
 --4.5
 aplanar :: [[Char]] -> [Char]
 aplanar [] = []
@@ -165,14 +165,12 @@ nBlancos 0 = []
 nBlancos n = ' ' : nBlancos (n-1)
 --Ej 5
 --5.1 
-{-
-sumaAcumulada :: (Num t) => [t] -> [t]
-sumaAcumulada  [] = []
-sumaAcumulada (x:xs) = x : sumaAcumulada (sumatoria2 x head(xs))
+sumaAcumulada :: (Num t, Eq t) => [t] -> [t]
+sumaAcumulada (x:xs) = reverso (sumaAcu1 (x:xs))
 
-sumatoria2 :: t -> t -> t
-sumatoria2 x y = x + y
--}
+sumaAcu1 :: (Num t) => [t] -> [t]
+sumaAcu1 [] = []
+sumaAcu1 (x:xs) = sum (x:xs) : sumaAcu1 (principio(x:xs))
 --5.2
 descomponerEnPrimos :: [Integer] -> [[Integer]]
 descomponerEnPrimos [] = []
