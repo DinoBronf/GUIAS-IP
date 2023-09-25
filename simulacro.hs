@@ -1,7 +1,8 @@
 --Ej 1
 relacionesValidas :: [(String,String)] -> Bool
 relacionesValidas [] = True
-relacionesValidas ((x,y):xs) | pertenece (x,y) (xs) = False
+relacionesValidas ((x,y):xs) | x == y = False
+                             | pertenece (x,y) (xs) = False
                              | pertenece (reverso (x,y)) (xs) = False
                              |otherwise = relacionesValidas xs
 reverso:: (String,String) -> (String,String)
@@ -27,8 +28,8 @@ amigosDe n ((x,y):xs) | n == x = [y] ++ (amigosDe n xs)
 personaConMasAmigos :: [(String,String)] -> String 
 personaConMasAmigos [] = "ninguno"
 personaConMasAmigos  ((x,y):(xs))   | (xs) == [] = personaConMasAmigosAux ((x,y):(xs)) 
-                                    | personaConMasAmigosAux ((x,y):(xs)) > personaConMasAmigosAux xs = personaConMasAmigos ((x,y):tail(xs))
-                                    | personaConMasAmigosAux ((x,y):(xs)) <= personaConMasAmigosAux xs = personaConMasAmigos (xs)
+                                    | longitud (amigosDe (personaConMasAmigosAux ((x,y):xs)) ((x,y):xs)) > longitud (amigosDe (personaConMasAmigosAux xs) ((x,y):xs)) = personaConMasAmigos ((x,y):tail(xs))
+                                    | longitud (amigosDe (personaConMasAmigosAux ((x,y):xs)) ((x,y):xs)) <= longitud (amigosDe (personaConMasAmigosAux xs) ((x,y):xs)) = personaConMasAmigos (xs)
  
 personaConMasAmigosAux :: [(String,String)] -> String
 personaConMasAmigosAux [] = []
