@@ -1,4 +1,6 @@
 import math
+#Ejercicio 1
+#1.1
 def imprimir_hola_mundo() -> None:
     print ('Hola Mundo') 
 imprimir_hola_mundo ()
@@ -32,6 +34,20 @@ def pares_10_40() -> None:
          x = x + 1 
        else:
          x = x + 1
-
-      
-     
+#1.2
+def imprimir_un_verso() -> None:
+   print ('el se canso de hacer canciones de protesta y se vendio a fiorucci')
+imprimir_un_verso ()      
+#1.3
+def raizDe2() -> float:
+   return round(math.sqrt (2),4)
+#1.4
+def factorial_de_dos() -> int:
+   return 1*2
+#1.5
+def perimetro() -> int:
+   return math.pi*2
+#Ejercicio 2
+#2.1
+def imprimir_saludo(x:string) -> None:
+    print ()
