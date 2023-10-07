@@ -94,7 +94,7 @@ def es_bisiesto(año) -> bool:
 #Ejercicio 4
 def peso_pino1(alturaencm) -> int:
     if alturaencm <= 3000:
-       return 3*sumatoria(3000)
+       return 3*3000
     else:
        return 3*3000 + 2*(alturaencm-3000)   
 def peso_pino(altura) -> int:
