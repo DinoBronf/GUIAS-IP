@@ -16,10 +16,7 @@ print(perimetro())
 
 def es_multiplo_de(x: int, y: int) -> bool:
     return x % y == 0 
-   
-def es_nombre_largo(nombre:str) -> bool:
-    return 3 <= len(nombre) <= 8     
-    
+         
 def devolver_el_doble_si_es_par(x:int) -> int:
     if x % 2 == 0 :
       return x * 2
@@ -76,5 +73,38 @@ def es_par(x:int) -> bool:
 def es_par2(x:int) -> bool:
    return es_multiplo_de2(x,2)
 #2.7
-def cantidad_de_pizzas(x:int,y:int) -> int:
-   
+def cantidad_de_pizzas(panas,porcionesporpana) -> int:
+    if panas*porcionesporpana % 8 == 0:
+        return panas*porcionesporpana / 8
+    else:
+     return cantidad_de_pizzas(panas,(porcionesporpana+1))
+#Ejercicio 3
+#3.1
+def alguno_es_0(x,y) -> bool:
+    return x == 0 or y == 0
+#3.2
+def ambos_son_0(x,y) -> bool:
+    return x == 0 and y == 0
+#3.3
+def es_nombre_largo(nombre:str) -> bool:
+    return 3 <= len(nombre) <= 8    
+#3.4
+def es_bisiesto(año) -> bool:
+    return es_multiplo_de(año,400) or es_multiplo_de(año,4) and not es_multiplo_de(año,100)  
+#Ejercicio 4
+def peso_pino1(alturaencm) -> int:
+    if alturaencm <= 3000:
+       return 3*sumatoria(3000)
+    else:
+       return 3*3000 + 2*(alturaencm-3000)   
+def peso_pino(altura) -> int:
+    peso_primeros_3m = min (altura,3) * 300 
+    peso_metros_adicionales = max (altura-3,0) * 200 
+    return peso_primeros_3m + peso_metros_adicionales 
+
+def sirve_pino(pinito) -> bool:
+    return max (peso_pino(pinito),1000) == 1000 and min(peso_pino(pinito),400) == 400
+
+def es_peso_util(pinito) -> bool:
+    return max (pinito,1000) == 1000 and min(pinito,400) == 400
+#Ejercicio 5
