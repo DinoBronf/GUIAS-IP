@@ -163,4 +163,36 @@ def nums_1_al_10() -> None:
     x = x +1  
 nums_1_al_10()
 #6.2
- 
+def pares_10_al_40() -> None:
+    x = 10
+    while (x!=41):
+     if (x % 2 == 0):
+      print(x)
+     x = x + 1
+    else:
+     x = x + 1
+pares_10_al_40()
+#6.3 forma 1
+def eco() -> str:
+   print ('eco ' * 10)
+eco()
+#6.4
+def cuenta_regresiva(x) -> None:
+    while (x!=0):
+     print (x)
+     x = x - 1
+    if x == 0:
+       return 'Despegue'
+#6.5
+def viaje_al_pasado(año_de_salida, año_de_llegada) -> None:
+    while (año_de_salida != año_de_llegada):
+      print (f"Viajo un año al pasado, estamos en el año:{año_de_salida-1}")
+      año_de_salida = año_de_salida - 1
+    if año_de_salida == año_de_llegada:
+       print (f"Viajo un año al pasado, estamos en el año:{año_de_llegada}")
+#6.6
+def viaje_a_conocer_Aristoteles(año_de_salida) -> None:
+    while (-364 < año_de_salida):
+       print (f"Viajo un año al pasado, estamos en el año:{año_de_salida-20}")
+       año_de_salida = año_de_salida - 20
+   
