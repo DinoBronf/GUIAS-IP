@@ -1,8 +1,4 @@
-from ast import Str
 import math
-from re import X
-import re
-from tokenize import String
 #Ejercicio 1
 #1.1
 def imprimir_hola_mundo() -> None:
