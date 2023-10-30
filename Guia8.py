@@ -149,20 +149,26 @@ def notacion_postfix(expresion) -> int:
     elemento = expresion.split()
     for i in range(len(expresion)):
         if expresion[i].isdigit():
-            p.put(expresion[i])
+             p.put(expresion[i])
         if expresion[i] == '+':
-            suma = p.get() + p.get()
+            operand1 = p.get()
+            operand2 = p.get()
+            suma = int(operand1) + int(operand2)
             p.put(suma)
         if expresion[i] == '-':
-            resta = p.get() - p.get()
+            operand1 = p.get()
+            operand2 = p.get()
+            resta = int(operand2) - int(operand1)
             p.put(resta)
         if expresion[i] == '*':
-            multiplicacion = p.get() * p.get()
+            multiplicacion = int(p.get()) * int(p.get())
             p.put(multiplicacion)
         if expresion[i] == '/':
-            division = p.get() / p.get()
+            operand1 = p.get()
+            operand2 = p.get()
+            division = int(operand2) / int(operand1)
             p.put(division)
-    return sum(p.queue)
+    return p.get()
 
         
 
