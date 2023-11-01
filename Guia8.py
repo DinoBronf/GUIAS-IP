@@ -3,8 +3,6 @@ import math
 import random
 from queue import LifoQueue as Pila
 from queue import Queue as Cola
-import os 
-import re 
 #PARTE 1: ARCHIVOS
 #Ejercicio 1
 #1.1
@@ -15,7 +13,7 @@ def contar_lineas(nombre_archivo:str) -> int:
     for i in abrir.readlines():
         contador += 1
     abrir.close()
-    return contador
+    return contador 
 #forma 2
 def contar_lineas2(nombre_archivo:str) -> int:
     with open(nombre_archivo, "r") as archivo:
@@ -146,7 +144,6 @@ def esta_bien_balanceada(funcion:str) -> bool:
 #Ejercicio 12
 def notacion_postfix(expresion) -> int:
     p = Pila()   
-    elemento = expresion.split()
     for i in range(len(expresion)):
         if expresion[i].isdigit():
              p.put(expresion[i])
@@ -169,7 +166,137 @@ def notacion_postfix(expresion) -> int:
             division = int(operand2) / int(operand1)
             p.put(division)
     return p.get()
+#PARTE 3: COLAS
+#Ejercicio 13
+def generarCola(n,x,y) -> Cola:
+    c = Cola()
+    listanums = generar_numeros_al_azar(n,x,y)
+    for i in listanums:
+        c.put(i)
+    return c
+#Ejercicio 14
+def cantidad_elementos2(c:Cola)-> int:
+    contador = 0
+    temp_cola = Cola()
+    while not c.empty():
+        elemento = c.get()
+        temp_cola.put(elemento)
+        contador +=1 
+    while not temp_cola.empty():
+        elemento1 = temp_cola.get()
+        c.put(elemento1)
+    return contador
+c1 = Cola()   
+c1.put(2)
+c1.put(3)
+print(cantidad_elementos2(c1))
+#Ejercicio 15
+def buscar_max(c:Cola)-> int:
+    lista = []
+    cola_temp = Cola()
+    i = 0
+    while not c.empty():
+     lista.append(c.get())
+     cola_temp.put(lista[i])
+     i += 1
+    while not cola_temp.empty():
+        elemento = cola_temp.get()
+        c.put(elemento) 
+    return max(lista)
+c1 = Cola()   
+c1.put(2)
+c1.put(3)
+print(f"el maximo es {buscar_max(c1)}")
+#Ejercicio 16
+def armar_secuencia_de_bingo()-> Cola:
+    Bingo = Cola()
+    lista = []
+    i = 0
+    while i != 99:
+       n = random.randint(0,99)
+       if not pertenece(n,lista):
+        lista.append(n)
+        i += 1
+    for elemento in lista:
+        Bingo.put(elemento)
+    return Bingo
+def pertenece(x,l) -> bool:
+    if x in l:
+        return True
+    else:
+        return False
+#No es tipo in 
+def jugar_carton_de_bingo(Carton:list,Bolillero:Cola) -> int:
+    Jugadas = 0
+    while not Carton == []:
+      bolilla = Bolillero.pop(0)
+      if bolilla in Carton:
+          Carton.remove(bolilla)
+      Jugadas += 1
+    return Jugadas   
+carton = [5,10,15,20,25,30,35,40,45,50,55,60]
+bolillero = list(range(0, 99))
+random.shuffle(bolillero)
+print(jugar_carton_de_bingo(carton,bolillero))
+#Ejercicio 17
+def n_pacientes_urgentes(c:Cola)-> int:
+    n = 0
+    while not c.empty():
+        elemento = c.get()
+        urgencia = elemento[0]
+        if urgencia < 4:
+            n += 1
+        else:
+            n = n
+    return n  
+Cola1 = Cola()
+Cola1.put((1,"L","R"))
+Cola1.put((2,"M","R"))
+print(n_pacientes_urgentes(Cola1))
+#Ejercicio 18
+def eliminar_repetidos(c:Cola) -> Cola:
+    colita = Cola()
+    while not c.empty():
+        if not pertenece(c.get(),colita):
+            colita.put(c.get())
+        else:
+            colita = colita
+    return colita 
 
+def a_clientes(c:Cola)-> Cola:
+    orden = Cola()
+    cola_temp = Cola()
+    cola_temp1 = Cola() 
+    while not c.empty():
+        info = c.get()
+        prioridad = info[3]
+        preferencia = info[2]
+        if prioridad == True:
+            orden.put(info)
+            cola_temp.put(info)
+        else:
+            cola_temp.put(info)
+            cola_temp1.put(info)
+        if preferencia == True:
+            orden.put(info)
+            cola_temp.put(info)
+        else:
+            cola_temp.put(info)
+            cola_temp1.put(info)
+        orden.put(info)
+    c.put(eliminar_repetidos(cola_temp)   )
+    return orden.queue
+cola_ingreso = Cola()
+cola_ingreso.put(("Juan Perez", 12345678, False, True))
+cola_ingreso.put(("Maria Rodriguez", 98765432, True, False))
+cola_ingreso.put(("Luis González", 55555555, True, False))
+cola_ingreso.put(("Ana López", 11111111, False, False))    
+print(a_clientes(cola_ingreso))
+
+
+
+
+        
         
 
 
