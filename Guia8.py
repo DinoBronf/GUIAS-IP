@@ -254,11 +254,20 @@ Cola1.put((1,"L","R"))
 Cola1.put((2,"M","R"))
 print(n_pacientes_urgentes(Cola1))
 #Ejercicio 18
+def pertenece_colas(l,c:Cola) -> bool:
+    lista = []
+    elemento = c.get()
+    lista.append(elemento)
+    if l in lista:
+        True
+    else:
+        False 
 def eliminar_repetidos(c:Cola) -> Cola:
     colita = Cola()
     while not c.empty():
-        if not pertenece(c.get(),colita):
-            colita.put(c.get())
+        elemento = c.get()
+        if not pertenece_colas(elemento,colita):
+            colita.put(elemento)
         else:
             colita = colita
     return colita 
@@ -284,7 +293,7 @@ def a_clientes(c:Cola)-> Cola:
             cola_temp.put(info)
             cola_temp1.put(info)
         orden.put(info)
-    c.put(eliminar_repetidos(cola_temp)   )
+    c.put(eliminar_repetidos(cola_temp))
     return orden.queue
 cola_ingreso = Cola()
 cola_ingreso.put(("Juan Perez", 12345678, False, True))
