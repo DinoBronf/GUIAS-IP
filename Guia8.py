@@ -256,12 +256,13 @@ print(n_pacientes_urgentes(Cola1))
 #Ejercicio 18
 def pertenece_colas(l,c:Cola) -> bool:
     lista = []
-    elemento = c.get()
-    lista.append(elemento)
+    while not c.empty():
+     elemento = c.get()
+     lista.append(elemento)
     if l in lista:
-        True
+        return True
     else:
-        False 
+      return  False 
 def eliminar_repetidos(c:Cola) -> Cola:
     colita = Cola()
     while not c.empty():
@@ -274,7 +275,7 @@ def eliminar_repetidos(c:Cola) -> Cola:
 
 def a_clientes(c:Cola)-> Cola:
     orden = Cola()
-    cola_temp = Cola()
+    restaura = Cola()
     cola_temp1 = Cola() 
     while not c.empty():
         info = c.get()
@@ -282,18 +283,17 @@ def a_clientes(c:Cola)-> Cola:
         preferencia = info[2]
         if prioridad == True:
             orden.put(info)
-            cola_temp.put(info)
-        else:
-            cola_temp.put(info)
-            cola_temp1.put(info)
-        if preferencia == True:
+            restaura.put(info)
+        elif preferencia == True:
             orden.put(info)
-            cola_temp.put(info)
+            restaura.put(info)
         else:
-            cola_temp.put(info)
+            restaura.put(info)
             cola_temp1.put(info)
-        orden.put(info)
-    c.put(eliminar_repetidos(cola_temp))
+    while not cola_temp1.empty():
+     elemento = cola_temp1.get()
+     orden.put(elemento)
+    c.put(eliminar_repetidos(restaura))
     return orden.queue
 cola_ingreso = Cola()
 cola_ingreso.put(("Juan Perez", 12345678, False, True))
@@ -302,6 +302,49 @@ cola_ingreso.put(("Luis González", 55555555, True, False))
 cola_ingreso.put(("Ana López", 11111111, False, False))    
 print(a_clientes(cola_ingreso))
 
+#PARTE 4: DICCIONARIOS
+#Ejercicio 19
+def agrupar_palabras(nombre_archivo:str) -> dict:
+    with open(nombre_archivo,"r") as archivo:
+        dict = {}
+        for linea in archivo:
+         palabras = linea.split()
+         for i in range(len(palabras)):
+             if len(palabras[i]) in dict:
+               dict[(len(palabras[i]))] += 1
+             else:
+                 dict[((len(palabras[i])))] = 1
+    return dict
+#Ejercicio 20
+notas_csv = "C:\\Users\\dinob\\OneDrive\\Escritorio\\Guia8\\notas.csv"
+def promedio_de_todos()-> dict:
+    dict = {}
+    with open(notas_csv,"r") as archivo:
+        for line in archivo:
+            datos = line.split(',')
+            LU, Materia, Fecha, Notas = datos
+            LU = LU.strip()
+            if len(LU) > 2:
+             dict[LU]=promedio_de_alumno(LU)
+    return dict
+#Ejercicio 21
+def la_palabra_mas_frecuente(nombre_archivo:str) -> str:
+    with open(nombre_archivo,"r") as archivo:
+        dict = Cuantas_veces_esta_cada_una(nombre_archivo)
+    return max(dict,key=dict.get)
+
+def Cuantas_veces_esta_cada_una(nombre_archivo:str)-> dict:
+    with open(nombre_archivo,"r") as archivo:
+        dict = {}
+        for linea in archivo:
+            palabras = linea.split()
+            for i in range(len(palabras)):
+                if palabras[i] in dict:
+                    dict[palabras[i]] += 1
+                else:
+                    dict[palabras[i]] = 1
+    return dict 
+#Ejercicio 22
 
 
 
