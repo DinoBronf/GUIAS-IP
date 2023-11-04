@@ -345,13 +345,100 @@ def Cuantas_veces_esta_cada_una(nombre_archivo:str)-> dict:
                     dict[palabras[i]] = 1
     return dict 
 #Ejercicio 22
+historiales = {}
+ultimo_sitio = []
+def visitar_sitio(historiales:dict,usuario:str,sitio:str):
+    historial = Pila()
+    if usuario not in historiales:
+        p = historial
+        p.put(sitio)
+        historiales[usuario] = historial
+    else:
+      p = historial
+      p.put(sitio)
+      historiales[usuario] = historial
+def navegar_atras(historiales,usuario:str):
+    if usuario in historiales:
+       historial = historiales[usuario] 
+       sitio_anterior = (historial.get())
+       ultimo_sitio.append(sitio_anterior)
+def navegar_adelante(historiales,usuario:str):
+    if usuario in historiales:
+        historial = historiales[usuario]
+        sitio_siguiente = ultimo_sitio.pop()
+        historial.put(sitio_siguiente) 
 
+historiales = {}
+visitar_sitio(historiales, "Usuario1", "google.com")
+visitar_sitio(historiales, "Usuario1", "facebook.com")
+navegar_atras(historiales, "Usuario1")
+visitar_sitio(historiales, "Usuario2", "youtube.com")
+navegar_adelante(historiales, "Usuario1")
+print(historiales)
+#Ejercicio 23
+inventario = {}
+nombre_precio_cantidad = {}
+def agregar_producto(inventario,nombre,precio,cantidad):
+    if not nombre in inventario:
+        inventario[nombre] = {"precio": precio,"cantidad":cantidad}
+def actualizar_stock(inventario,nombre,cantidad):
+    if nombre in inventario:
+        inventario[nombre]["cantidad"] = cantidad
+def actualizar_precios(inventario,nombre,precio):
+    if nombre in inventario:
+        inventario[nombre]["precio"] = precio
+def calcular_valor_inventario(inventario)-> int:
+    valor = 0
+    for nombre in inventario:
+      info = inventario[nombre]
+      valor +=  info["precio"] * info["cantidad"]
+    return valor 
+inventario = {}
+agregar_producto(inventario, "Camisa", 20.0, 50)
+agregar_producto(inventario, "Pantal´on", 30.0, 30)
+actualizar_stock(inventario, "Camisa", 10)
+valor_total = calcular_valor_inventario(inventario) 
+print(valor_total)
 
-
-        
-        
-
-
+#Simulacro
+#Ejercicio 1
+def ultima_aparición(s:list,e:int) -> int:
+    apariciones = []
+    for i in range(len(s)):
+        if s[i] == e:
+            apariciones.append(i)
+    return max(apariciones)
+#Ejercicio 2
+def elementos_exclusivos(s:list,t:list) -> list:
+    exclusivo = []
+    for i in range(len(s)):
+     if s[i] not in t:
+          if s[i] not in exclusivo:
+           exclusivo.append(s[i])
+    for q in range(len(t)):
+        if t[q] not in s:
+            if t[q] not in exclusivo:
+                exclusivo.append(t[q])
+    return exclusivo
+#Ejercicio 3
+def contar_traducciones_iguales(ingles:dict,aleman:dict) -> int:
+    contador = 0
+    for key,value in ingles.items():
+        for key1,value1 in aleman.items():
+            if key == key1 and value == value1:
+                contador += 1
+    return contador 
+print(contar_traducciones_iguales({"Pie": "Foot", "Dedo": "Finger", "Mano": "Hand"},{"Mano": "Hand", "Pie": "Fuss", "Dedo": "Finger", "Cara": "Gesicht"}))
+#Ejercicio 4
+def convertir_a_diccionario(l:list)->dict:
+    dict = {}
+    for i in range(len(l)):
+        if l[i] in dict:
+            dict[l[i]] += 1
+        else:
+            dict[l[i]] = 1
+    return dict 
+print(convertir_a_diccionario([-1,0,4,100,100,-1,-1]))
 
            
         
