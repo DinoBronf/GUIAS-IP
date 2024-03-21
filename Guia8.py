@@ -440,6 +440,86 @@ def convertir_a_diccionario(l:list)->dict:
     return dict 
 print(convertir_a_diccionario([-1,0,4,100,100,-1,-1]))
 
+#Practica para final
+
+def permutacion_secuencias(l1:list,l2:list) -> bool:
+    cont1 = {}
+    for elem in l1:
+        if elem in cont1:
+            cont1[elem]+=1
+        else:
+            cont1[elem]=1
+    cont2 = {}
+    for elem in l2: 
+        if elem in cont2:
+            cont2[elem]+=1
+        else:
+            cont2[elem]=1
+    if cont1 == cont2:
+        return True
+    else:
+        return False
+
+def cantidad_apariciones(x,l:list) -> int:
+    contador = 0
+    for e in l:
+        if x == e:
+            contador += 1
+    return contador
+
+
+def PPT() -> str:
+    y = ["Papel","Tijera","Piedra"]
+    contador1 = 0
+    contador2= 0
+    while contador1 < 3 and contador2 < 3:
+        quetira = input("Piedra, Papel o Tijera? ")
+        tira = random.choice(y) 
+        print(f"Maquina tiro {tira}")
+        if quetira == "Papel":
+            if tira == "Piedra":
+                contador1 += 1
+                if contador1 == 3:
+                    print(f"Ganaste")
+                    break
+            if tira == "Tijera":
+                contador2 += 1
+                if contador2 == 3:
+                    print(f"Perdiste :(")
+                    break
+        if quetira == "Piedra":
+            if tira == "Tijera":
+                contador1 += 1
+                if contador1 == 3:
+                    print(f"Ganaste")
+                    break
+            if tira == "Papel":
+                contador2 += 1
+                if contador2 == 3:
+                    print(f"Perdiste :(")
+                    break
+        if quetira == "Tijera":
+            if tira == "Piedra":
+                contador2 += 1
+                if contador2 == 3:
+                    print(f"Perdiste :(")
+                    break
+            if tira == "Papel":
+                contador1 += 1
+                if contador1 == 3:
+                    print(f"Ganaste")
+                    break
+    
+   
+
+
+
+
+
+
+
+                
+
            
         
        
